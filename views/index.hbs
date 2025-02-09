@@ -1,86 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Олимпиады для школьников Якутии">
-  <meta name="keywords" content="олимпиады, школьники, соревнования, новости, образование, якутия">
-  <title>Олимпиады в Якутии</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="/js/main.js" defer></script>
-</head>
+{{> head description="Олимпиады для школьников Якутии" keywords="олимпиады, школьники, соревнования, новости, образование, якутия" title="Олимпиады в Якутии"}}
 <body class="body">
 
-<header class="header">
-  <nav class="header__nav">
-    <ul class="header__nav-list">
-      <li class="header__nav-list__item"><a href="index" class="header__nav-list__link">Главное</a></li>
-      <li class="header__nav-list__item"><a href="news" class="header__nav-list__link">Новости</a></li>
-      <li class="header__nav-list__item"><a href="olympiads" class="header__nav-list__link">Текущие олимпиады</a></li>
-      <li class="header__nav-list__item"><a href="contacts" class="header__nav-list__link">Контакты</a></li>
-      <li class="header__nav-list__item"><a href="constructor" class="header__nav-list__link">Конструктор</a></li>
-      <li class="header__nav-list__item"><a href="messages" class="header__nav-list__link">Сообщения</a></li>
-      <li class="header__nav-list__item"><a href="gallery" class="header__nav-list__link">Галерея</a></li>
-    </ul>
-  </nav>
-  <div class="header__content">
-    <img src="/images/logo.png" alt="Логотип" class="header__logo"/>
-    <h1 class="header__title">Олимпиады в Якутии</h1>
-  </div>
-</header>
+{{> header pageTitle="Олимпиады в Якутии"}}
 
-<main class="main">
-  <section class="main__current-olympiads">
-    <h2 class="main__title">Текущие олимпиады</h2>
-    <ul class="main__list">
-      <li class="main__list-item">Олимпиада по информатике <pre><code>print("Hello, world!")</code></pre> - регистрация до 15 октября</li>
-      <li class="main__list-item">Олимпиада по биологии - регистрация до 1 ноября</li>
-      <li class="main__list-item">Олимпиада по химии - регистрация до 20 ноября</li>
-    </ul>
-  </section>
+{{> content}}
 
-  <section class="main__news">
-    <h2 class="main__title">Последние новости</h2>
-    <article class="main__article">
-      <h3 class="main__article-title">Новая олимпиада по математике</h3>
-      <p class="main__article-text">Открыта регистрация на новую всероссийскую олимпиаду по математике. Подача заявок возможна до 30 сентября.</p>
-    </article>
-    <article class="main__article">
-      <h3 class="main__article-title">Результаты олимпиады по физике</h3>
-      <p class="main__article-text">Объявлены результаты всероссийской олимпиады по физике. Поздравляем победителей!</p>
-    </article>
-  </section>
-
-  <section class="main__schedule">
-    <h2 class="main__title">Расписание</h2>
-    <div class="table">
-      <div class="table__row table__header">
-        <div class="table__cell">Предмет</div>
-        <div class="table__cell">Дата</div>
-        <div class="table__cell">Время</div>
-      </div>
-      <div class="table__row">
-        <div class="table__cell">Информатика</div>
-        <div class="table__cell">15 окт</div>
-        <div class="table__cell">10:00</div>
-      </div>
-      <div class="table__row">
-        <div class="table__cell">Биология</div>
-        <div class="table__cell">1 ноя</div>
-        <div class="table__cell">11:30</div>
-      </div>
-      <div class="table__row">
-        <div class="table__cell">Химия</div>
-        <div class="table__cell">20 ноя</div>
-        <div class="table__cell">14:00</div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer id="footer">
-  <h2>Контакты</h2>
-  <p>Свяжитесь с нами по почте: <strong>sinedmv@niuitmo.ru</strong></p>
-</footer>
+{{> footer}}
 
 </body>
 </html>

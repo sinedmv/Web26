@@ -1,63 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Галерея изображений - Олимпиады в Якутии">
-    <meta name="keywords" content="галерея, слайдер, swiperjs, олимпиады">
-    <title>Галерея - Олимпиады в Якутии</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
-    <script src="/js/main.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
-</head>
+{{> head description="Галерея изображений - Олимпиады в Якутии"
+        keywords="галерея, слайдер, swiperjs, олимпиады"
+        title="Олимпиады в Якутии"}}
 <body class="body">
 
-<header class="header">
-    <nav class="header__nav">
-        <ul class="header__nav-list">
-            <li class="header__nav-list__item"><a href="index" class="header__nav-list__link">Главное</a></li>
-            <li class="header__nav-list__item"><a href="news" class="header__nav-list__link">Новости</a></li>
-            <li class="header__nav-list__item"><a href="olympiads" class="header__nav-list__link">Текущие олимпиады</a></li>
-            <li class="header__nav-list__item"><a href="contacts" class="header__nav-list__link">Контакты</a></li>
-            <li class="header__nav-list__item"><a href="constructor" class="header__nav-list__link">Конструктор</a></li>
-            <li class="header__nav-list__item"><a href="messages" class="header__nav-list__link">Сообщения</a></li>
-            <li class="header__nav-list__item"><a href="gallery" class="header__nav-list__link">Галерея</a></li>
-        </ul>
-    </nav>
-    <div class="header__content">
-        <img src="/images/logo.png" alt="Логотип" class="header__logo"/>
-        <h1 class="header__title">Галерея</h1>
-    </div>
-</header>
+{{> header pageTitle="Олимпиады в Якутии"}}
 
-<main class="main">
-    <section class="gallery">
-        <h2 class="gallery__title">Галерея изображений</h2>
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/images/Yakutia.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/logo.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/Yakutia.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/logo.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/Yakutia.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/logo.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/Yakutia.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/logo.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/Yakutia.png" alt="Якутия"></div>
-                <div class="swiper-slide"><img src="/images/logo.png" alt="Якутия"></div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-</main>
+{{> content}}
 
-<footer id="footer">
-    <h2>Контакты</h2>
-    <p>Свяжитесь с нами по почте: <strong>sinedmv@niuitmo.ru</strong></p>
-</footer>
+{{> footer}}
 
 </body>
 </html>

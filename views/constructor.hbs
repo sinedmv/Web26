@@ -1,74 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Конструктор таблицы олимпиад">
-    <meta name="keywords" content="олимпиады, таблицы, конструктор">
-    <title>Конструктор олимпиад - Олимпиады в Якутии</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/constructor.js" defer></script>
-    <script src="/js/main.js" defer></script>
-</head>
+{{> head description="Конструктор таблицы олимпиад"
+        keywords="олимпиады, таблицы, конструктор"
+        title="Олимпиады в Якутии"}}
 <body class="body">
 
-<header class="header">
-    <nav class="header__nav">
-        <ul class="header__nav-list">
-            <li class="header__nav-list__item"><a href="index" class="header__nav-list__link">Главное</a></li>
-            <li class="header__nav-list__item"><a href="news" class="header__nav-list__link">Новости</a></li>
-            <li class="header__nav-list__item"><a href="olympiads" class="header__nav-list__link">Текущие олимпиады</a></li>
-            <li class="header__nav-list__item"><a href="contacts" class="header__nav-list__link">Контакты</a></li>
-            <li class="header__nav-list__item"><a href="constructor" class="header__nav-list__link">Конструктор</a></li>
-            <li class="header__nav-list__item"><a href="messages" class="header__nav-list__link">Сообщения</a></li>
-            <li class="header__nav-list__item"><a href="gallery" class="header__nav-list__link">Галерея</a></li>
-        </ul>
-    </nav>
-    <div class="header__content">
-        <img src="/images/logo.png" alt="Логотип" class="header__logo"/>
-        <h1 class="header__title">Конструктор олимпиад</h1>
-    </div>
-</header>
+{{> header pageTitle="Олимпиады в Якутии"}}
 
-<main class="main">
-    <section class="constructor">
-        <h2 class="constructor__title">Создание расписания олимпиад</h2>
-        <form id="schedule-form" class="constructor__form">
-            <label class="constructor__label">
-                Название олимпиады:
-                <input type="text" id="olympiad-name" name="olympiadName" class="constructor__input" required>
-            </label>
-            <label class="constructor__label">
-                Предмет:
-                <input type="text" id="subject" name="subject" class="constructor__input" required>
-            </label>
-            <label class="constructor__label">
-                Дата проведения:
-                <input type="date" id="date" name="date" class="constructor__input" required>
-            </label>
-            <button type="submit" class="btn constructor__btn">Добавить олимпиаду</button>
-        </form>
+{{> content}}
 
-        <div id="table-container" class="table-container">
-            <table class="generated-table">
-                <thead class="generated-table__head">
-                <tr class="generated-table__row">
-                    <th class="generated-table__header">Название олимпиады</th>
-                    <th class="generated-table__header">Предмет</th>
-                    <th class="generated-table__header">Дата</th>
-                    <th class="generated-table__header">Статус</th>
-                    <th class="generated-table__header">Действия</th>
-                </tr>
-                </thead>
-                <tbody id="table-body" class="generated-table__body"></tbody>
-            </table>
-        </div>
-    </section>
-</main>
-
-<footer id="footer">
-    <h2>Контакты</h2>
-    <p>Свяжитесь с нами по почте: <strong>sinedmv@niuitmo.ru</strong></p>
-</footer>
+{{> footer}}
 
 </body>
 </html>

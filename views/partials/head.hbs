@@ -1,0 +1,12 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
+    <title>{{title}}</title>
+    {{> sharedScripts}}
+    {{#if additionalScripts}}
+        {{#each additionalScripts}}
+            <script src="{{this}}" defer></script>
+        {{/each}}
+    {{/if}}
+</head>

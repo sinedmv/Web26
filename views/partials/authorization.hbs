@@ -1,0 +1,9 @@
+<div class="authorization">
+    {{#if isAuthorized}}
+        <p class="authorization__status">Вы авторизованы как {{username}}.</p>
+        <a href="/logout" class="authorization__link">Выйти</a>
+    {{else}}
+        <p class="authorization__status">Вы не авторизованы.</p>
+        <a href="/login" class="authorization__link">Войти</a>
+    {{/if}}
+</div>
