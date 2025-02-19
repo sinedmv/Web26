@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as path from 'path';
@@ -7,7 +8,23 @@ import * as hbs from 'hbs';
 import { readdirSync, readFileSync } from 'fs';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.PG_HOST,
+      port: parseInt(process.env.PG_PORT!),
+      username: process.env.PG_USERNAME,
+      password: process.env.PG_PASSWORD,
+      database: process.env.PG_NAME,
+      synchronize: true,
+      logging: false,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
