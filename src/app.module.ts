@@ -12,6 +12,8 @@ import { OlympiadsModule } from './olympiads/olympiads.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { UsersModule } from './users/users.module';
 import * as handlebarsLayouts from 'handlebars-layouts';
+import {NewsService} from "./news/news.service";
+import {OlympiadsService} from "./olympiads/olympiads.service";
 
 @Module({
   imports: [

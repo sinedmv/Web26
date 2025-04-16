@@ -39,6 +39,17 @@ export class NewsService {
         });
     }
 
+    async findAllPaginated(page: number, limit: number): Promise<{ items: News[]; total: number }> {
+        const [items, total] = await this.newsRepository.findAndCount({
+            relations: ['relatedOlympiads'],
+            skip: (page - 1) * limit,
+            take: limit,
+            order: { id: 'DESC' },
+        });
+        return { items, total };
+    }
+
+
     async findOne(id: number): Promise<News> {
         const news = await this.newsRepository.findOne({
             where: { id },

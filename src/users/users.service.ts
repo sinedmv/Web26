@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {Subject} from "rxjs";
+import {News} from "../news/entities/news.entity";
 
 @Injectable()
 export class UsersService {
@@ -16,6 +17,15 @@ export class UsersService {
 
     async findAll(): Promise<User[]> {
         return this.userRepository.find();
+    }
+
+    async findAllPaginated(page: number, limit: number): Promise<{ items: User[]; total: number }> {
+        const [items, total] = await this.userRepository.findAndCount({
+            skip: (page - 1) * limit,
+            take: limit,
+            order: { createdAt: 'DESC' },
+        });
+        return { items, total };
     }
 
     async findOne(id: number): Promise<User> {

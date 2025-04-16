@@ -13,7 +13,7 @@
         <h2 class="main__title">Текущие олимпиады</h2>
         <ul class="main__list">
             {{#each olympiads}}
-                <li class="main__list-item">{{content}}</li>
+                <li class="main__list-item">{{name}}</li>
             {{/each}}
         </ul>
     </section>
@@ -23,22 +23,9 @@
         {{#each news}}
             <article class="main__article">
                 <h3 class="main__article-title">{{title}}</h3>
-                <p class="main__article-text">{{text}}</p>
+                <p class="main__article-text">{{content}}</p>
             </article>
         {{/each}}
-    </section>
-
-    <section class="main__schedule">
-        <h2 class="main__title">Расписание</h2>
-        <div class="table">
-            {{#each schedule}}
-                <div class="table__row">
-                    <div class="table__cell">{{subject}}</div>
-                    <div class="table__cell">{{date}}</div>
-                    <div class="table__cell">{{time}}</div>
-                </div>
-            {{/each}}
-        </div>
     </section>
 </main>
 

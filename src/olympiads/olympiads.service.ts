@@ -5,6 +5,7 @@ import { Olympiad } from './entities/olympiad.entity';
 import { User } from '../users/entities/user.entity';
 import { CreateOlympiadDto } from './dto/create-olympiad.dto';
 import { UpdateOlympiadDto } from './dto/update-olympiad.dto';
+import {Message} from "../messages/entities/message.entity";
 
 @Injectable()
 export class OlympiadsService {
@@ -38,6 +39,15 @@ export class OlympiadsService {
 
     async findAll(): Promise<Olympiad[]> {
         return this.olympiadRepository.find({ relations: ['participants'] });
+    }
+
+    async findAllPaginated(page: number, limit: number): Promise<{ items: Olympiad[]; total: number }> {
+        const [items, total] = await this.olympiadRepository.findAndCount({
+            skip: (page - 1) * limit,
+            take: limit,
+            order: { olympiadDate: 'DESC' },
+        });
+        return { items, total };
     }
 
     async findOne(id: number): Promise<Olympiad> {

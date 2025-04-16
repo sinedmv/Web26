@@ -53,6 +53,17 @@ export class MessagesService {
         });
     }
 
+
+    async findAllPaginated(page: number, limit: number): Promise<{ items: Message[]; total: number }> {
+        const [items, total] = await this.messageRepository.findAndCount({
+            relations: ['author', 'olympiad', 'news'],
+            skip: (page - 1) * limit,
+            take: limit,
+            order: { createdAt: 'DESC' },
+        });
+        return { items, total };
+    }
+
     async findOne(id: number): Promise<Message> {
         const message = await this.messageRepository.findOne({
             where: { id },
