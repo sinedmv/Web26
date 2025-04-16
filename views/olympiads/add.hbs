@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Создание новой олимпиады"
+        keywords="олимпиада, создать"
+        title="Новая олимпиада"
+}}
+<body class="body">
+{{> header pageTitle="Создание олимпиады"}}
+
+<main class="main">
+    <section class="olympiad-form">
+        <h2 class="olympiad-form__title">Новая олимпиада</h2>
+
+        <form action="/olympiads" method="POST" class="form">
+            <div class="form__group">
+                <label for="name" class="form__label">Название:</label>
+                <input type="text" id="name" name="name" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="organization" class="form__label">Организация:</label>
+                <input type="text" id="organization" name="organization" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="subject" class="form__label">Предмет:</label>
+                <input type="text" id="subject" name="subject" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="registrationStartDate" class="form__label">Дата начала регистрации:</label>
+                <input type="date" id="registrationStartDate" name="registrationStartDate" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="registrationEndDate" class="form__label">Дата окончания регистрации:</label>
+                <input type="date" id="registrationEndDate" name="registrationEndDate" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="olympiadDate" class="form__label">Дата проведения:</label>
+                <input type="date" id="olympiadDate" name="olympiadDate" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="additionalInfo" class="form__label">Дополнительная информация:</label>
+                <textarea id="additionalInfo" name="additionalInfo" class="form__textarea"></textarea>
+            </div>
+
+            <div class="form__group">
+                <label for="participantIds" class="form__label">Участники (ID через запятую):</label>
+                <input type="text" id="participantIds" name="participantIds" class="form__input">
+            </div>
+
+            <div class="form__actions">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="/olympiads" class="btn">Отмена</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

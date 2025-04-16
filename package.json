@@ -22,8 +22,10 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
+    "handlebars-layouts": "^3.1.4",
     "hbs": "^4.2.0",
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",

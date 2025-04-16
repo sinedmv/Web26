@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Просмотр сообщения"
+        keywords="сообщение, детали"
+        title="Сообщение #{{message.id}}"
+}}
+<body class="body">
+{{> header pageTitle="Просмотр сообщения"}}
+
+<main class="main">
+    <section class="message-details">
+        <div class="message">
+            <h2 class="message__title">Сообщение #{{message.id}}</h2>
+
+            <div class="message__content">
+                <p>{{message.content}}</p>
+            </div>
+
+            <div class="message__meta">
+                <p><strong>Автор:</strong> {{message.author.username}} (ID: {{message.author.id}})</p>
+                <p><strong>Дата:</strong> {{formatDate message.createdAt}}</p>
+
+                {{#if message.olympiad}}
+                    <p><strong>Олимпиада:</strong> {{message.olympiad.name}} (ID: {{message.olympiad.id}})</p>
+                {{/if}}
+
+                {{#if message.news}}
+                    <p><strong>Новость:</strong> {{message.news.title}} (ID: {{message.news.id}})</p>
+                {{/if}}
+            </div>
+
+            {{#if isAuthorized}}
+                <div class="message__actions">
+                    <a href="/messages/{{message.id}}/edit" class="btn">Редактировать</a>
+                    <form action="/messages/{{message.id}}?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+
+        <a href="/messages" class="btn">Вернуться к списку</a>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

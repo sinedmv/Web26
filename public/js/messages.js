@@ -8,33 +8,34 @@ document.addEventListener("DOMContentLoaded", () => {
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("message");
 
-            const title = document.createElement("h3");
-            title.classList.add("message__title");
-            title.textContent = message.title;
+            const author = document.createElement("h3");
+            author.classList.add("message__author");
+            author.textContent = message.author.username;
 
             const body = document.createElement("p");
             body.classList.add("message__text");
-            body.textContent = message.body;
+            body.textContent = message.content;
 
-            messageDiv.appendChild(title);
+            const date = document.createElement("small");
+            date.classList.add("message__date");
+            date.textContent = new Date(message.createdAt).toLocaleString();
+
+            messageDiv.appendChild(author);
             messageDiv.appendChild(body);
+            messageDiv.appendChild(date);
             content.appendChild(messageDiv);
         });
     };
 
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch("/messages")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Ошибка сети");
             }
             return response.json();
         })
-        .then((data) => {
-            const numberOfMessages = Math.floor(Math.random() * data.length) + 1;
-            const shuffledMessages = data.sort(() => 0.5 - Math.random());
-            const selectedMessages = shuffledMessages.slice(0, numberOfMessages);
-
-            renderMessages(selectedMessages);
+        .then((messages) => {
+            renderMessages(messages);
             preloader.style.display = "none";
         })
         .catch((err) => {

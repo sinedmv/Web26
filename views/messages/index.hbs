@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Список сообщений"
+        keywords="сообщения, список"
+        title="Все сообщения"
+}}
+<body class="body">
+{{> header pageTitle="Сообщения"}}
+
+<main class="main">
+    <section class="messages">
+        <h2 class="messages__title">Все сообщения</h2>
+
+        {{#if isAuthorized}}
+            <a href="/messages/add" class="btn btn-primary">Добавить сообщение</a>
+        {{/if}}
+
+        <div class="messages__list">
+            {{#each messages}}
+                <div class="message">
+                    <h3 class="message__title">Сообщение #{{id}}</h3>
+                    <p class="message__content">{{content}}</p>
+                    <div class="message__meta">
+                        <p><strong>Автор:</strong> {{author.username}} (ID: {{author.id}})</p>
+                        <p><strong>Дата:</strong> {{formatDate createdAt}}</p>
+                    </div>
+
+                    {{#if ../isAuthorized}}
+                        <div class="message__actions">
+                            <a href="/messages/{{id}}/edit" class="btn">Редактировать</a>
+                            <form action="/messages/{{id}}?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

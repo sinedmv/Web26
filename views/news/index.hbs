@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description=meta.description
+        keywords=meta.keywords
+        title=meta.title
+}}
+<body class="body">
+{{> header pageTitle="Новости"}}
+
+<main class="main">
+    <section class="news">
+        <h1 class="news__title">Последние новости</h1>
+
+        {{#if isAuthorized}}
+            <a href="/news/add" class="btn btn-primary">Добавить новость</a>
+        {{/if}}
+
+        <div class="news__list">
+            {{#each news}}
+                <article class="news-item">
+                    <h2 class="news-item__title">{{title}}</h2>
+                    <div class="news-item__content">{{content}}</div>
+
+                    {{#if relatedOlympiads.length}}
+                        <div class="news-item__olympiads">
+                            <strong>Связанные олимпиады:</strong>
+                            {{#each relatedOlympiads}}
+                                <span class="badge">{{name}}</span>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+
+                    {{#if ../isAuthorized}}
+                        <div class="news-item__actions">
+                            <a href="/news/{{id}}/edit" class="btn">Редактировать</a>
+                            <form action="/news/{{id}}?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    {{/if}}
+                </article>
+            {{/each}}
+        </div>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

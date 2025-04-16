@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Редактирование сообщения"
+        keywords="сообщение, редактировать"
+        title="Редактирование сообщения"
+}}
+<body class="body">
+{{> header pageTitle="Редактирование сообщения"}}
+
+<main class="main">
+    <section class="message-form">
+        <h2 class="message-form__title">Редактирование сообщения</h2>
+
+        <form action="/messages/{{message.id}}?_method=PATCH" method="POST" class="form">
+            <div class="form__group">
+                <label for="content" class="form__label">Текст сообщения:</label>
+                <textarea id="content" name="content" class="form__textarea" required>{{message.content}}</textarea>
+            </div>
+
+            <div class="form__group">
+                <label class="form__label">Текущий автор:</label>
+                <p>{{message.author.username}} (ID: {{message.author.id}})</p>
+                <input type="hidden" name="authorId" value="{{message.author.id}}">
+            </div>
+
+            <div class="form__group">
+                <label for="olympiadId" class="form__label">ID олимпиады:</label>
+                <input type="number" id="olympiadId" name="olympiadId"
+                       value="{{#if message.olympiad}}{{message.olympiad.id}}{{/if}}" class="form__input">
+            </div>
+
+            <div class="form__group">
+                <label for="newsId" class="form__label">ID новости:</label>
+                <input type="number" id="newsId" name="newsId"
+                       value="{{#if message.news}}{{message.news.id}}{{/if}}" class="form__input">
+            </div>
+
+            <div class="form__actions">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="/messages/{{message.id}}" class="btn">Отмена</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
-{{> head description="Новости Олимпиад в Якутии"
+{{> head
+        description="Новости Олимпиад в Якутии"
         keywords="олимпиады, новости, якутия"
-        title="Олимпиады в Якутии"}}
+        title="Новости - Олимпиады в Якутии"
+}}
 <body class="body">
+{{> header pageTitle="Новости об олимпиадах"}}
 
-{{> header pageTitle="Олимпиады в Якутии"}}
-
-{{> content}}
+<main class="main">
+    <section class="news">
+        <h2 class="news__title">Последние новости</h2>
+        {{#each news}}
+            <article class="news__article">
+                <h3 class="news__article-title">{{title}}</h3>
+                <p class="news__article-text">{{text}}</p>
+            </article>
+        {{/each}}
+    </section>
+</main>
 
 {{> footer}}
-
 </body>
 </html>

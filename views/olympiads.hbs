@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="ru">
-{{> head description="Текущие олимпиады для школьников Якутии"
+{{> head
+        description="Текущие олимпиады для школьников Якутии"
         keywords="олимпиады, школьники, соревнования, якутия"
-        title="Олимпиады в Якутии"}}
+        title="Олимпиады в Якутии"
+}}
 <body class="body">
+{{> header pageTitle="Текущие олимпиады"}}
 
-{{> header pageTitle="Олимпиады в Якутии"}}
+<main class="main">
+    <section class="olympiads">
+        <h2 class="olympiads__title">Список олимпиад</h2>
+        <ul class="olympiads__list">
+            {{#each olympiads}}
+                <li class="olympiads__item">
+                    <h3>{{name}}</h3>
+                    <p>Предмет: {{subject}}</p>
+                    <p>Дата: {{formatDate olympiadDate}}</p>
+                    {{#if ../isAuthorized}}
+                        <div class="olympiads__actions">
+                            <a href="/olympiads/{{id}}/edit" class="btn">Редактировать</a>
+                            <form action="/olympiads/{{id}}?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
 
-{{> content}}
+        {{#if isAuthorized}}
+            <a href="/olympiads/add" class="btn btn-primary">Добавить олимпиаду</a>
+        {{/if}}
+    </section>
+</main>
 
 {{> footer}}
-
 </body>
 </html>

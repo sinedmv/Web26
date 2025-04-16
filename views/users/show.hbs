@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Просмотр пользователя"
+        keywords="пользователь, профиль"
+        title="Пользователь: {{user.username}}"
+}}
+<body class="body">
+{{> header pageTitle="Профиль пользователя"}}
+
+<main class="main">
+    <section class="user-profile">
+        <div class="user-profile__card">
+            <h2 class="user-profile__name">{{user.username}}</h2>
+
+            <div class="user-profile__info">
+                <p><strong>ID:</strong> {{user.id}}</p>
+                <p><strong>Email:</strong> {{user.email}}</p>
+                <p><strong>Статус:</strong> {{#if user.isAdmin}}Администратор{{else}}Пользователь{{/if}}</p>
+                <p><strong>Дата регистрации:</strong> {{formatDate user.createdAt}}</p>
+            </div>
+
+            {{#if isAuthorized}}
+                <div class="user-profile__actions">
+                    <a href="/users/{{user.id}}/edit" class="btn">Редактировать</a>
+                    <form action="/users/{{user.id}}?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+
+        <a href="/users" class="btn">Вернуться к списку</a>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

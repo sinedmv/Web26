@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/css/styles.css">
+<script src="/js/main.js" defer></script>
+
+{{#if additionalStyles}}
+    {{#each additionalStyles}}
+        <link rel="stylesheet" href="{{this}}">
+    {{/each}}
+{{/if}}
+
+{{#if additionalScripts}}
+    {{#each additionalScripts}}
+        <script src="{{this}}" defer></script>
+    {{/each}}
+{{/if}}

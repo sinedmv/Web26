@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description=meta.description
+        keywords="добавить, новость"
+        title=meta.title
+}}
+<body class="body">
+{{> header pageTitle="Добавить новость"}}
+
+<main class="main">
+    <section class="news-form">
+        <h1 class="news-form__title">Новая новость</h1>
+
+        <form action="/news" method="POST" class="form">
+            <div class="form__group">
+                <label for="title" class="form__label">Заголовок:</label>
+                <input type="text" id="title" name="title" class="form__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="content" class="form__label">Содержание:</label>
+                <textarea id="content" name="content" class="form__textarea" required></textarea>
+            </div>
+
+            <div class="form__group">
+                <label class="form__label">Связанные олимпиады (необязательно):</label>
+                <div class="form__checkboxes">
+                    {{#each olympiads}}
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="olympiadIds" value="{{id}}">
+                            {{name}}
+                        </label>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="form__actions">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="/news" class="btn">Отмена</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

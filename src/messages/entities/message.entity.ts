@@ -18,8 +18,8 @@ export class Message {
     author: User;
 
     @ManyToOne(() => Olympiad, { nullable: true })
-    olympiad: Olympiad;
+    olympiad: Olympiad | null;
 
     @ManyToOne(() => News, { nullable: true })
-    news: News;
+    news: News | null;
 }

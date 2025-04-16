@@ -29,5 +29,5 @@ export class Olympiad {
 
     @ManyToMany(() => User)
     @JoinTable()
-    participants: User[];
+    participants?: User[];
 }

@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
-{{> head description="Сообщения пользователей"
+{{> head
+        description="Сообщения пользователей"
         keywords="сообщения, форум"
-        title="Олимпиады в Якутии"}}
+        title="Сообщения - Олимпиады в Якутии"
+}}
 <body class="body">
+{{> header pageTitle="Сообщения пользователей"}}
 
-{{> header pageTitle="Олимпиады в Якутии"}}
-
-{{> content}}
+<main class="main">
+    <section class="messages">
+        <h2 class="messages__title">Сообщения</h2>
+        <div id="preloader" class="preloader">Загрузка...</div>
+        <div id="content" class="messages__content"></div>
+        <div id="error" class="messages__error"></div>
+    </section>
+</main>
 
 {{> footer}}
-
+<script src="/js/messages.js" defer></script>
 </body>
 </html>

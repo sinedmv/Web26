@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Список пользователей"
+        keywords="пользователи, список"
+        title="Все пользователи"
+}}
+<body class="body">
+{{> header pageTitle="Пользователи"}}
+
+<main class="main">
+    <section class="users">
+        <h2 class="users__title">Список пользователей</h2>
+
+        {{#if isAuthorized}}
+            <a href="/users/add" class="btn btn-primary">Добавить пользователя</a>
+        {{/if}}
+
+        <div class="users__list">
+            {{#each users}}
+                <div class="user-card">
+                    <h3 class="user-card__name">{{username}}</h3>
+                    <p class="user-card__email">{{email}}</p>
+                    <p class="user-card__meta">
+                        ID: {{id}} |
+                        {{#if isAdmin}}Администратор{{else}}Пользователь{{/if}} |
+                        Дата регистрации: {{formatDate createdAt}}
+                    </p>
+
+                    {{#if ../isAuthorized}}
+                        <div class="user-card__actions">
+                            <a href="/users/{{id}}/edit" class="btn">Редактировать</a>
+                            <form action="/users/{{id}}?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </section>
+</main>
+
+{{> footer}}
+
+<script src="/js/users-sse.js"></script>
+</body>
+</html>

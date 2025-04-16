@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Просмотр олимпиады"
+        keywords="олимпиада, детали"
+        title="Олимпиада: {{olympiad.name}}"
+}}
+<body class="body">
+{{> header pageTitle="Просмотр олимпиады"}}
+
+<main class="main">
+    <section class="olympiad-details">
+        <div class="olympiad">
+            <h2 class="olympiad__title">{{olympiad.name}}</h2>
+            <p><strong>Организация:</strong> {{olympiad.organization}}</p>
+            <p><strong>Предмет:</strong> {{olympiad.subject}}</p>
+            <p><strong>Дата регистрации:</strong> {{formatDate olympiad.registrationStartDate}} — {{formatDate olympiad.registrationEndDate}}</p>
+            <p><strong>Дата проведения:</strong> {{formatDate olympiad.olympiadDate}}</p>
+            <p><strong>Дополнительная информация:</strong> {{olympiad.additionalInfo}}</p>
+
+            <h3>Участники:</h3>
+            <ul>
+                {{#each olympiad.participants}}
+                    <li>{{username}} (ID: {{id}})</li>
+                {{/each}}
+            </ul>
+
+            {{#if isAuthorized}}
+                <div class="olympiad__actions">
+                    <a href="/olympiads/{{olympiad.id}}/edit" class="btn">Редактировать</a>
+                    <form action="/olympiads/{{olympiad.id}}?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+
+        <a href="/olympiads" class="btn">Вернуться к списку</a>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

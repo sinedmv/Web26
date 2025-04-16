@@ -1,7 +1,6 @@
-<li class="header__nav-list__item"><a href="index" class="header__nav-list__link">Главное</a></li>
-<li class="header__nav-list__item"><a href="news" class="header__nav-list__link">Новости</a></li>
-<li class="header__nav-list__item"><a href="olympiads" class="header__nav-list__link">Текущие олимпиады</a></li>
-<li class="header__nav-list__item"><a href="contacts" class="header__nav-list__link">Контакты</a></li>
-<li class="header__nav-list__item"><a href="constructor" class="header__nav-list__link">Конструктор</a></li>
-<li class="header__nav-list__item"><a href="messages" class="header__nav-list__link">Сообщения</a></li>
-<li class="header__nav-list__item"><a href="gallery" class="header__nav-list__link">Галерея</a></li>
+<li class="header__nav-list__item"><a href="/" class="header__nav-list__link {{#if (eq currentPage 'index')}}header__nav-list__link--active{{/if}}">Главное</a></li>
+<li class="header__nav-list__item"><a href="/news" class="header__nav-list__link {{#if (eq currentPage 'news')}}header__nav-list__link--active{{/if}}">Новости</a></li>
+<li class="header__nav-list__item"><a href="/olympiads" class="header__nav-list__link {{#if (eq currentPage 'olympiads')}}header__nav-list__link--active{{/if}}">Текущие олимпиады</a></li>
+<li class="header__nav-list__item"><a href="/contacts" class="header__nav-list__link {{#if (eq currentPage 'contacts')}}header__nav-list__link--active{{/if}}">Контакты</a></li>
+<li class="header__nav-list__item"><a href="/messages" class="header__nav-list__link {{#if (eq currentPage 'messages')}}header__nav-list__link--active{{/if}}">Сообщения</a></li>
+<li class="header__nav-list__item"><a href="/gallery" class="header__nav-list__link {{#if (eq currentPage 'gallery')}}header__nav-list__link--active{{/if}}">Галерея</a></li>

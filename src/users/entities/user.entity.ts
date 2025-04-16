@@ -6,20 +6,17 @@ export class User {
     id: number;
 
     @Column({ unique: true })
-    login: string;
+    username: string;
+
+    @Column()
+    email: string;
 
     @Column()
     password: string;
 
-    @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string;
-
-    @Column({ unique: true })
-    email: string;
-
     @Column({ default: false })
     isAdmin: boolean;
+
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    createdAt: Date;
 }

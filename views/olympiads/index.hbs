@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Список олимпиад"
+        keywords="олимпиады, список"
+        title="Все олимпиады"
+}}
+<body class="body">
+{{> header pageTitle="Олимпиады"}}
+
+<main class="main">
+    <section class="olympiads">
+        <h2 class="olympiads__title">Все олимпиады</h2>
+
+        {{#if isAuthorized}}
+            <a href="/olympiads/add" class="btn btn-primary">Добавить олимпиаду</a>
+        {{/if}}
+
+        <div class="olympiads__list">
+            {{#each olympiads}}
+                <div class="olympiad">
+                    <h3 class="olympiad__title">{{name}}</h3>
+                    <p><strong>Организация:</strong> {{organization}}</p>
+                    <p><strong>Предмет:</strong> {{subject}}</p>
+                    <p><strong>Дата регистрации:</strong> {{formatDate registrationStartDate}} — {{formatDate registrationEndDate}}</p>
+                    <p><strong>Дата олимпиады:</strong> {{formatDate olympiadDate}}</p>
+
+                    {{#if ../isAuthorized}}
+                        <div class="olympiad__actions">
+                            <a href="/olympiads/{{id}}/edit" class="btn">Редактировать</a>
+                            <form action="/olympiads/{{id}}?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </section>
+</main>
+
+{{> footer}}
+</body>
+</html>

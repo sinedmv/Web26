@@ -6,6 +6,12 @@ import * as path from 'path';
 import * as handlebars from 'handlebars';
 import * as hbs from 'hbs';
 import { readdirSync, readFileSync } from 'fs';
+import { MessagesModule } from './messages/messages.module';
+import { NewsModule } from './news/news.module';
+import { OlympiadsModule } from './olympiads/olympiads.module';
+import { GalleryModule } from './gallery/gallery.module';
+import { UsersModule } from './users/users.module';
+import * as handlebarsLayouts from 'handlebars-layouts';
 
 @Module({
   imports: [
@@ -24,6 +30,11 @@ import { readdirSync, readFileSync } from 'fs';
         rejectUnauthorized: false,
       },
     }),
+    MessagesModule,
+    NewsModule,
+    OlympiadsModule,
+    GalleryModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -34,6 +45,12 @@ export class AppModule {
   }
 
   private registerPartials() {
+    handlebars.registerHelper('eq', (a, b) => a === b);
+    handlebars.registerHelper('formatDate', (date) => new Date(date).toLocaleDateString());
+
+    hbs.registerHelper('eq', (a, b) => a === b);
+    hbs.registerHelper('formatDate', (date) => new Date(date).toLocaleDateString());
+
     const partialsDir = path.join(__dirname, '..', 'views', 'partials');
 
     readdirSync(partialsDir).forEach(file => {
@@ -44,5 +61,18 @@ export class AppModule {
       handlebars.registerPartial(partialName, partialContent);
       console.log(`Registered partial: ${partialName}`);
     });
+
+    const layoutDir = path.join(__dirname, '..', 'views', 'layouts');
+
+    readdirSync(layoutDir).forEach(file => {
+      const partialName = path.basename(file, '.hbs');
+      const partialPath = path.join(layoutDir, file);
+      const partialContent = readFileSync(partialPath, 'utf8');
+      hbs.registerPartial(partialName, partialContent);
+      handlebars.registerPartial(partialName, partialContent);
+      console.log(`Registered layout: ${partialName}`);
+    });
+
+    handlebarsLayouts.register(handlebars);
   }
 }
