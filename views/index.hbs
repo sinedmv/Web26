@@ -27,6 +27,19 @@
             </article>
         {{/each}}
     </section>
+
+    <section class="main__schedule">
+        <h2 class="main__title">Расписание</h2>
+        <div class="table">
+            {{#each schedule}}
+                <div class="table__row">
+                    <div class="table__cell">{{name}}</div>
+                    <div class="table__cell">{{subject}}</div>
+                    <div class="table__cell">{{olympiadDate}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </section>
 </main>
 
 {{> footer}}

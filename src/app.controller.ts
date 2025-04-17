@@ -21,6 +21,7 @@ export class AppController {
     return {
       news: newsPage.items,
       olympiads: olympiadsPage.items,
+      schedule: olympiadsPage.items,
       description: 'Олимпиады для школьников Якутии',
       keywords: 'олимпиады, школьники, соревнования, новости, образование, якутия',
       title: 'Олимпиады в Якутии',

@@ -5,11 +5,12 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {News} from "./entities/news.entity";
 import {Olympiad} from "../olympiads/entities/olympiad.entity";
 import {NewsApiController} from "./news.api.controller";
+import {NewsResolver} from "./news.resolver";
 
 @Module({
   imports: [TypeOrmModule.forFeature([News, Olympiad])],
   controllers: [NewsController, NewsApiController], // добавь сюда
-  providers: [NewsService],
+  providers: [NewsService, NewsResolver],
   exports: [NewsService],
 })
 

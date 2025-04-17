@@ -14,6 +14,8 @@ import { UsersModule } from './users/users.module';
 import * as handlebarsLayouts from 'handlebars-layouts';
 import {NewsService} from "./news/news.service";
 import {OlympiadsService} from "./olympiads/olympiads.service";
+import {GraphQLModule} from "@nestjs/graphql";
+import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 
 @Module({
   imports: [
@@ -31,6 +33,10 @@ import {OlympiadsService} from "./olympiads/olympiads.service";
       ssl: {
         rejectUnauthorized: false,
       },
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
     }),
     MessagesModule,
     NewsModule,
