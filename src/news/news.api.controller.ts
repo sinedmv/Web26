@@ -10,7 +10,7 @@ import {
     DefaultValuePipe,
     ParseIntPipe,
     HttpCode,
-    HttpStatus,
+    HttpStatus, UseInterceptors, Header,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
@@ -24,9 +24,11 @@ import {
     ApiParam,
     ApiQuery,
 } from '@nestjs/swagger';
+import {ETagInterceptor} from "../interceptors/etag.interceptor";
 
 @ApiTags('News')
 @Controller('api/news')
+@UseInterceptors(ETagInterceptor)
 export class NewsApiController {
     constructor(private readonly newsService: NewsService) {}
 
@@ -36,6 +38,7 @@ export class NewsApiController {
     @ApiResponse({ status: 201, description: 'Новость успешно создана', type: News })
     @ApiResponse({ status: 400, description: 'Некорректные данные запроса' })
     @HttpCode(HttpStatus.CREATED)
+    @Header('Cache-Control', 'public, max-age=3600')
     async create(@Body() createNewsDto: CreateNewsDto): Promise<News> {
         return this.newsService.create(createNewsDto);
     }
@@ -70,6 +73,7 @@ export class NewsApiController {
             },
         },
     })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
@@ -92,6 +96,7 @@ export class NewsApiController {
     @ApiParam({ name: 'id', type: Number, description: 'ID новости' })
     @ApiResponse({ status: 200, description: 'Новость найдена', type: News })
     @ApiResponse({ status: 404, description: 'Новость не найдена' })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findOne(@Param('id', ParseIntPipe) id: number): Promise<News> {
         return this.newsService.findOne(id);
     }

@@ -8,16 +8,18 @@ import {
     Delete,
     ParseIntPipe,
     Query,
-    DefaultValuePipe,
+    DefaultValuePipe, Header, UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiBody } from '@nestjs/swagger';
 import { OlympiadsService } from './olympiads.service';
 import { CreateOlympiadDto } from './dto/create-olympiad.dto';
 import { UpdateOlympiadDto } from './dto/update-olympiad.dto';
 import { Olympiad } from './entities/olympiad.entity';
+import {ETagInterceptor} from "../interceptors/etag.interceptor";
 
 @ApiTags('Olympiads')
 @Controller('api/olympiads')
+@UseInterceptors(ETagInterceptor)
 export class OlympiadsApiController {
     constructor(private readonly olympiadsService: OlympiadsService) {}
 
@@ -25,6 +27,7 @@ export class OlympiadsApiController {
     @ApiOperation({ summary: 'Создать новую олимпиаду' })
     @ApiBody({ type: CreateOlympiadDto })
     @ApiResponse({ status: 201, description: 'Олимпиада успешно создана', type: Olympiad })
+    @Header('Cache-Control', 'public, max-age=3600')
     async create(@Body() createOlympiadDto: CreateOlympiadDto): Promise<Olympiad> {
         return this.olympiadsService.create(createOlympiadDto);
     }
@@ -60,6 +63,7 @@ export class OlympiadsApiController {
             },
         },
     })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
@@ -82,6 +86,7 @@ export class OlympiadsApiController {
     @ApiParam({ name: 'id', type: Number, description: 'ID олимпиады' })
     @ApiResponse({ status: 200, description: 'Данные олимпиады', type: Olympiad })
     @ApiResponse({ status: 404, description: 'Олимпиада не найдена' })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findOne(@Param('id', ParseIntPipe) id: number): Promise<Olympiad> {
         return this.olympiadsService.findOne(id);
     }

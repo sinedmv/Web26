@@ -5,9 +5,14 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {Olympiad} from "../olympiads/entities/olympiad.entity";
 import {User} from "./entities/user.entity";
 import {UsersResolver} from "./user.resolver";
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]),
+    CacheModule.register({
+      ttl: 5,
+      max: 100,
+    })],
   controllers: [UsersController],
   providers: [UsersService, UsersResolver],
 })

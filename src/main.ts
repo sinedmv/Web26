@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import {INestApplication, ValidationPipe} from "@nestjs/common";
 import {AllExceptionsFilter} from "./exception.filter";
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {ElapsedTimeInterceptor} from "./interceptors/time.interceptor";
 
 export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
@@ -35,6 +36,7 @@ async function bootstrap() {
   }));
 
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalInterceptors(new ElapsedTimeInterceptor());
 
   setupSwagger(app)
 

@@ -10,16 +10,20 @@ import {
     HttpStatus,
     ParseIntPipe,
     Query,
-    DefaultValuePipe,
+    DefaultValuePipe, UseInterceptors, Header,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiBody } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import {CacheInterceptor} from "@nestjs/cache-manager";
+import {ETagInterceptor} from "../interceptors/etag.interceptor";
 
 @ApiTags('Users')
 @Controller('api/users')
+@UseInterceptors(CacheInterceptor)
+@UseInterceptors(ETagInterceptor)
 export class UsersApiController {
     constructor(private readonly usersService: UsersService) {}
 
@@ -51,6 +55,7 @@ export class UsersApiController {
             },
         },
     })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
@@ -78,6 +83,7 @@ export class UsersApiController {
     })
     @ApiResponse({ status: 400, description: 'Некорректный ID пользователя' })
     @ApiResponse({ status: 404, description: 'Пользователь не найден' })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
         return this.usersService.findOne(id);
     }

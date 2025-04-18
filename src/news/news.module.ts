@@ -9,7 +9,7 @@ import {NewsResolver} from "./news.resolver";
 
 @Module({
   imports: [TypeOrmModule.forFeature([News, Olympiad])],
-  controllers: [NewsController, NewsApiController], // добавь сюда
+  controllers: [NewsController, NewsApiController],
   providers: [NewsService, NewsResolver],
   exports: [NewsService],
 })

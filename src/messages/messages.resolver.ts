@@ -1,8 +1,8 @@
 import { Resolver, Query, Args, Int, Mutation } from '@nestjs/graphql';
-import { Message } from "./messages/entities/message.entity";
-import { MessagesService } from "./messages/messages.service";
-import { CreateMessageDto } from "./messages/dto/create-message.dto";
-import { UpdateMessageDto } from "./messages/dto/update-message.dto";
+import { Message } from "./entities/message.entity";
+import { MessagesService } from "./messages.service";
+import { CreateMessageDto } from "./dto/create-message.dto";
+import { UpdateMessageDto } from "./dto/update-message.dto";
 
 @Resolver(() => Message)
 export class MessagesResolver {

@@ -10,7 +10,7 @@ import {
     Query,
     DefaultValuePipe,
     HttpCode,
-    HttpStatus,
+    HttpStatus, UseInterceptors, Header,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -24,9 +24,11 @@ import {
     ApiParam,
     ApiQuery,
 } from '@nestjs/swagger';
+import {ETagInterceptor} from "../interceptors/etag.interceptor";
 
 @ApiTags('Messages')
 @Controller('api/messages')
+@UseInterceptors(ETagInterceptor)
 export class MessagesApiController {
     constructor(private readonly messagesService: MessagesService) {}
 
@@ -35,6 +37,7 @@ export class MessagesApiController {
     @ApiBody({ type: CreateMessageDto, description: 'Данные для создания сообщения' })
     @ApiResponse({ status: 201, description: 'Сообщение успешно создано', type: Message })
     @ApiResponse({ status: 400, description: 'Некорректные данные запроса' })
+    @Header('Cache-Control', 'public, max-age=3600')
     async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
         return this.messagesService.create(createMessageDto);
     }
@@ -67,6 +70,7 @@ export class MessagesApiController {
             },
         },
     })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
@@ -89,6 +93,7 @@ export class MessagesApiController {
     @ApiParam({ name: 'id', type: Number, description: 'ID сообщения' })
     @ApiResponse({ status: 200, description: 'Сообщение найдено', type: Message })
     @ApiResponse({ status: 404, description: 'Сообщение не найдено' })
+    @Header('Cache-Control', 'public, max-age=3600')
     async findOne(@Param('id', ParseIntPipe) id: number): Promise<Message> {
         return this.messagesService.findOne(id);
     }
