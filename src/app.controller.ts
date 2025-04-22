@@ -3,7 +3,9 @@ import { AppService } from './app.service';
 import { Request } from 'express';
 import {NewsService} from "./news/news.service";
 import {OlympiadsService} from "./olympiads/olympiads.service";
+import {ApiExcludeController} from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller()
 export class AppController {
   constructor(

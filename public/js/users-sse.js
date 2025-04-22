@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const eventSource = new EventSource('/users/sse');
-    const usersList = document.getElementById('users-list'); // Получаем элемент списка пользователей
+    const usersList = document.getElementById('users-list');
 
     if (!usersList) {
         console.error('Element with ID "users-list" not found');

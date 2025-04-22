@@ -16,6 +16,7 @@ import {NewsService} from "./news/news.service";
 import {OlympiadsService} from "./olympiads/olympiads.service";
 import {GraphQLModule} from "@nestjs/graphql";
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -37,12 +38,14 @@ import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      csrfPrevention: false
     }),
     MessagesModule,
     NewsModule,
     OlympiadsModule,
     GalleryModule,
-    UsersModule
+    UsersModule,
+    S3Module
   ],
   controllers: [AppController],
   providers: [AppService],

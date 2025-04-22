@@ -3,7 +3,9 @@ import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
 import { Request, Response } from 'express';
+import {ApiExcludeController} from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller('news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}

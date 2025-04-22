@@ -11,7 +11,7 @@ export class CreateUserDto {
 
     @ApiProperty({ example: 'John', description: 'Имя пользователя' })
     @Field()
-    @IsEmail()
+    @IsString()
     name: string;
 
     @ApiProperty({ example: 25, description: 'Возраст пользователя' })

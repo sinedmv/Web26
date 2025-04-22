@@ -11,6 +11,15 @@
 <main class="main">
     <section class="gallery">
         <h2 class="gallery__title">Галерея</h2>
+
+        <div class="upload-form">
+            <h3>Загрузить новое изображение</h3>
+            <form id="uploadForm" enctype="multipart/form-data" method="post">
+                <input type="file" name="image" />
+                <button type="submit">Загрузить</button>
+            </form>
+        </div>
+
         <div class="swiper">
             <div class="swiper-wrapper">
                 {{#each slides}}

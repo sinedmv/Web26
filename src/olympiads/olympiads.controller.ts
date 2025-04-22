@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Patch, Delete, Param, Render, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { OlympiadsService } from './olympiads.service';
+import {ApiExcludeController} from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller('olympiads')
 export class OlympiadsController {
   constructor(private readonly olympiadsService: OlympiadsService) {}

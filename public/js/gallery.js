@@ -25,4 +25,30 @@ document.addEventListener("DOMContentLoaded", () => {
             delay: 3000, // Задержка между автопрокруткой (в миллисекундах)
         },
     });
+
+    const uploadForm = document.getElementById('uploadForm');
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(uploadForm);
+
+            try {
+                const response = await fetch('/gallery/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    alert('Изображение успешно загружено!');
+                    window.location.reload();
+                } else {
+                    alert('Ошибка при загрузке изображения');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ошибка при загрузке изображения');
+            }
+        });
+    }
 });

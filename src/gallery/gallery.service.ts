@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
+import { S3Service } from '../s3/s3.service';
 
 @Injectable()
 export class GalleryService {
+    constructor(private readonly s3Service: S3Service) {}
+
     async getSlides() {
-        return [
-            { src: "/images/Yakutia.png", alt: "Якутия" },
-            { src: "/images/logo.png", alt: "Логотип" },
-            { src: "/images/Yakutia.png", alt: "Якутия" },
-            { src: "/images/logo.png", alt: "Логотип" },
-        ];
+        const files = await this.s3Service.listFiles();
+
+        return files.map(file => ({
+            src: `https://storage.yandexcloud.net/sinedmv/${file.Key}`,
+            alt: file.Key,
+        }));
+    }
+
+    async uploadImage(file: Express.Multer.File) {
+        const key = `gallery/${Date.now()}-${file.originalname}`;
+        await this.s3Service.uploadFile(file, key);
+        return key;
     }
 }

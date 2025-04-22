@@ -17,7 +17,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request, Response } from 'express';
 import {map, Observable} from "rxjs";
+import {ApiExcludeController} from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

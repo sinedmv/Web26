@@ -1,6 +1,9 @@
 import { Controller, Get, Post, Patch, Delete, Param, Render, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { MessagesService } from './messages.service';
+import {ApiExcludeController} from "@nestjs/swagger";
+
+@ApiExcludeController()
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
