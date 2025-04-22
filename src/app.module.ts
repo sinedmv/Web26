@@ -38,7 +38,8 @@ import { S3Module } from './s3/s3.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
-      csrfPrevention: false
+      csrfPrevention: false,
+      playground: true
     }),
     MessagesModule,
     NewsModule,
