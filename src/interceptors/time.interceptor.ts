@@ -18,17 +18,11 @@ export class ElapsedTimeInterceptor implements NestInterceptor {
         return next.handle().pipe(
             map((data) => {
                 const elapsed = Date.now() - now;
+
                 if (typeof data === 'object' && data !== null) {
                     return { ...data, serverElapsedTime: elapsed };
                 }
                 return data;
-            }),
-            tap(() => {
-                const elapsed = Date.now() - now;
-                response.setHeader('X-Elapsed-Time', `${elapsed}ms`);
-                console.log(
-                    `[${request.method}] ${request.originalUrl} - ${elapsed}ms`,
-                );
             }),
         );
     }

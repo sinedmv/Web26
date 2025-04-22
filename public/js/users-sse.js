@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const eventSource = new EventSource('/users/sse');
-    const usersList = document.getElementById('users-list');
+    const usersList = document.getElementById('users__list');
 
     if (!usersList) {
         console.error('Element with ID "users-list" not found');
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    eventSource.onerror = () => {
-        console.error('SSE connection error');
+    eventSource.onerror = (event) => {
+        console.error('SSE connection error', event);
     };
 
     function addUserToList(user) {
@@ -75,11 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showToast(message) {
-        const toast = Toster.create({
-            content: message,
-            position: 'top-right',
-            duration: 3000,
-        });
-        toast.show();
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.position = 'fixed';
+        toast.style.top = '20px';
+        toast.style.right = '20px';
+        toast.style.background = '#333';
+        toast.style.color = '#fff';
+        toast.style.padding = '10px 20px';
+        toast.style.borderRadius = '5px';
+        toast.style.zIndex = 10000;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
     }
 });

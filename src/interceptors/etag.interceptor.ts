@@ -12,16 +12,24 @@ import * as crypto from 'crypto';
 export class ETagInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const ctx = context.switchToHttp();
+        const request = ctx.getRequest();
         const response = ctx.getResponse();
 
         return next.handle().pipe(
             map((body) => {
+                const serializedBody = JSON.stringify(body ?? {});
                 const etag = crypto
                     .createHash('md5')
-                    .update(JSON.stringify(body))
+                    .update(serializedBody)
                     .digest('hex');
 
                 response.setHeader('ETag', etag);
+
+                const ifNoneMatch = request.headers['if-none-match'];
+                if (ifNoneMatch && ifNoneMatch === etag) {
+                    response.status(304);
+                    return undefined;
+                }
 
                 return body;
             }),
