@@ -13,6 +13,10 @@ export class User {
     username: string;
 
     @Field()
+    @Column({ unique: true })
+    supertoken_id: string;
+
+    @Field()
     @Column()
     email: string;
 
