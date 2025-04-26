@@ -1,4 +1,4 @@
-import {MiddlewareConsumer, Module} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,14 +12,11 @@ import { OlympiadsModule } from './olympiads/olympiads.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { UsersModule } from './users/users.module';
 import * as handlebarsLayouts from 'handlebars-layouts';
+import {NewsService} from "./news/news.service";
+import {OlympiadsService} from "./olympiads/olympiads.service";
 import {GraphQLModule} from "@nestjs/graphql";
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 import { S3Module } from './s3/s3.module';
-import { AuthModule } from './auth/auth.module';
-import {IsAuthMiddleware} from "./common/is-auth.middleware";
-import {apiKey, appInfo, connectionURI, recipeList} from "./config";
-import {AuthMiddleware} from "./common/auth.middleware";
-import { SuperTokensModule } from 'supertokens-nestjs'
 
 @Module({
   imports: [
@@ -45,23 +42,12 @@ import { SuperTokensModule } from 'supertokens-nestjs'
       playground: true,
       introspection: true,
     }),
-    SuperTokensModule.forRoot({
-      debug: true,
-      framework: 'express',
-      supertokens: {
-        connectionURI,
-        apiKey,
-      },
-      appInfo,
-      recipeList,
-    }),
     MessagesModule,
     NewsModule,
     OlympiadsModule,
     GalleryModule,
     UsersModule,
-    S3Module,
-    AuthModule
+    S3Module
   ],
   controllers: [AppController],
   providers: [AppService],

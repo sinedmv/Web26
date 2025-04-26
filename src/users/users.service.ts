@@ -39,14 +39,6 @@ export class UsersService {
         return user;
     }
 
-    async findUserBySupertokenId(id: string): Promise<User> {
-        const user = await this.userRepository.findOne({ where: { supertoken_id: id } });
-        if (!user) {
-            throw new Error('User not found');
-        }
-        return user;
-    }
-
 
     async create(createUserDto: CreateUserDto): Promise<User> {
         const user = this.userRepository.create(createUserDto);
