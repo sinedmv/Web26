@@ -25,6 +25,8 @@ import {
     ApiQuery,
 } from '@nestjs/swagger';
 import {ETagInterceptor} from "../interceptors/etag.interceptor";
+import {UserResponseDto} from "../users/dto/user-response.dto";
+import {MessageResponseDto} from "./dto/message-response.dto";
 
 @ApiTags('Messages')
 @Controller('api/messages')
@@ -78,7 +80,7 @@ export class MessagesApiController {
         const { items, total } = await this.messagesService.findAllPaginated(page, limit);
 
         return {
-            data: items,
+            data: items.map(item => new MessageResponseDto(item)),
             meta: {
                 total,
                 page,
@@ -94,8 +96,8 @@ export class MessagesApiController {
     @ApiResponse({ status: 200, description: 'Сообщение найдено', type: Message })
     @ApiResponse({ status: 404, description: 'Сообщение не найдено' })
     @Header('Cache-Control', 'public, max-age=3600')
-    async findOne(@Param('id', ParseIntPipe) id: number): Promise<Message> {
-        return this.messagesService.findOne(id);
+    async findOne(@Param('id', ParseIntPipe) id: number): Promise<MessageResponseDto> {
+        return new MessageResponseDto(this.messagesService.findOne(id));
     }
 
     @Patch(':id')

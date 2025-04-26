@@ -5,7 +5,6 @@
 type User {
   id: Int!
   username: String!
-  supertoken_id: String!
   email: String!
   isAdmin: Boolean!
   createdAt: DateTime!
@@ -41,6 +40,33 @@ type Message {
   news: News!
 }
 
+type UserResponseDto {
+  id: Float!
+  username: String!
+  email: String!
+  isAdmin: Boolean!
+  createdAt: DateTime!
+}
+
+type OlympiadResponseDto {
+  id: Int!
+  name: String!
+  organization: String!
+  subject: String!
+  registrationStartDate: DateTime!
+  registrationEndDate: DateTime!
+  olympiadDate: DateTime!
+  additionalInfo: String
+  participants: [UserResponseDto!]
+}
+
+type NewsResponseDto {
+  id: Int!
+  title: String!
+  content: String!
+  relatedOlympiads: [OlympiadResponseDto!]
+}
+
 type Query {
   messages: [Message!]!
   message(id: Int!): Message!
@@ -71,8 +97,8 @@ input CreateMessageDto {
 }
 
 input UpdateMessageDto {
-  content: String!
-  olympiadId: Int!
+  content: String
+  olympiadId: Int
   newsId: Int
 }
 
@@ -95,8 +121,8 @@ input CreateUserDto {
 }
 
 input UpdateUserDto {
-  username: String!
-  email: String!
-  password: String!
-  isAdmin: Boolean!
+  username: String
+  email: String
+  password: String
+  isAdmin: Boolean
 }

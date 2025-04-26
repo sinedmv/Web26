@@ -19,6 +19,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import {CacheInterceptor} from "@nestjs/cache-manager";
 import {ETagInterceptor} from "../interceptors/etag.interceptor";
+import {UserResponseDto} from "./dto/user-response.dto";
 
 @ApiTags('Users')
 @Controller('api/users')
@@ -41,7 +42,6 @@ export class UsersApiController {
                         id: 1,
                         username: 'john_doe',
                         email: 'john@example.com',
-                        password: 'password123',
                         isAdmin: false,
                         createdAt: '2024-06-01T12:00:00.000Z',
                     },
@@ -63,7 +63,7 @@ export class UsersApiController {
         const { items, total } = await this.usersService.findAllPaginated(page, limit);
 
         return {
-            data: items,
+            data: items.map(user => new UserResponseDto(user)),
             meta: {
                 total,
                 page,
@@ -79,13 +79,14 @@ export class UsersApiController {
     @ApiResponse({
         status: 200,
         description: 'Пользователь найден',
-        type: User,
+        type: UserResponseDto,
     })
     @ApiResponse({ status: 400, description: 'Некорректный ID пользователя' })
     @ApiResponse({ status: 404, description: 'Пользователь не найден' })
     @Header('Cache-Control', 'public, max-age=3600')
-    async findOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
-        return this.usersService.findOne(id);
+    async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserResponseDto> {
+        const user = await this.usersService.findOne(id);
+        return new UserResponseDto(user);
     }
 
     @Post()

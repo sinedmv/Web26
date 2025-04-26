@@ -25,6 +25,8 @@ import {
     ApiQuery,
 } from '@nestjs/swagger';
 import {ETagInterceptor} from "../interceptors/etag.interceptor";
+import {UserResponseDto} from "../users/dto/user-response.dto";
+import {NewsResponseDto} from "./dto/news-response.dto";
 
 @ApiTags('News')
 @Controller('api/news')
@@ -81,7 +83,7 @@ export class NewsApiController {
         const { items, total } = await this.newsService.findAllPaginated(page, limit);
 
         return {
-            data: items,
+            data: items.map(item => new NewsResponseDto(item)),
             meta: {
                 total,
                 page,
@@ -97,8 +99,8 @@ export class NewsApiController {
     @ApiResponse({ status: 200, description: 'Новость найдена', type: News })
     @ApiResponse({ status: 404, description: 'Новость не найдена' })
     @Header('Cache-Control', 'public, max-age=3600')
-    async findOne(@Param('id', ParseIntPipe) id: number): Promise<News> {
-        return this.newsService.findOne(id);
+    async findOne(@Param('id', ParseIntPipe) id: number): Promise<NewsResponseDto> {
+        return new NewsResponseDto(this.newsService.findOne(id));
     }
 
     @Patch(':id')

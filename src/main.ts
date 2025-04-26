@@ -6,10 +6,6 @@ import {INestApplication, ValidationPipe} from "@nestjs/common";
 import {AllExceptionsFilter} from "./exception.filter";
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {ElapsedTimeInterceptor} from "./interceptors/time.interceptor";
-import { middleware } from "supertokens-node/framework/express";
-import { errorHandler } from "supertokens-node/framework/express";
-import supertokens from 'supertokens-node';
-
 
 export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
@@ -32,15 +28,6 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
-
-  app.use(middleware());
-  app.use(errorHandler());
-
-  app.enableCors({
-    origin: true,
-    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
-    credentials: true,
-  });
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
