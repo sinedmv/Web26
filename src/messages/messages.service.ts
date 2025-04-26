@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {Olympiad} from "../olympiads/entities/olympiad.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {News} from "../news/entities/news.entity";
@@ -29,7 +29,7 @@ export class MessagesService {
         });
 
         if (!author) {
-            throw new Error('Author not found');
+            throw new NotFoundException('Author not found');
         }
 
         const [olympiad, news] = await Promise.all([
@@ -71,7 +71,7 @@ export class MessagesService {
         });
 
         if (!message) {
-            throw new Error('Message not found');
+            throw new NotFoundException('Message not found');
         }
         return message;
     }
@@ -103,7 +103,7 @@ export class MessagesService {
     async remove(id: number): Promise<void> {
         const result = await this.messageRepository.delete(id);
         if (result.affected === 0) {
-            throw new Error('Message not found');
+            throw new NotFoundException('Message not found');
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {In, Repository} from 'typeorm';
 import { Olympiad } from './entities/olympiad.entity';
@@ -57,7 +57,7 @@ export class OlympiadsService {
         });
 
         if (!olympiad) {
-            throw new Error('Olympiad not found');
+            throw new NotFoundException('Olympiad not found');
         }
         return olympiad;
     }
@@ -87,7 +87,7 @@ export class OlympiadsService {
     async remove(id: number): Promise<void> {
         const result = await this.olympiadRepository.delete(id);
         if (result.affected === 0) {
-            throw new Error('Olympiad not found');
+            throw new NotFoundException('Olympiad not found');
         }
     }
 }

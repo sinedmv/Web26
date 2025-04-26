@@ -3,7 +3,7 @@ import {
     Catch,
     ArgumentsHost,
     HttpException,
-    HttpStatus,
+    HttpStatus, NotFoundException,
 } from '@nestjs/common';
 import { GqlArgumentsHost } from '@nestjs/graphql';
 import { EntityNotFoundError, QueryFailedError } from "typeorm";
@@ -58,8 +58,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
             message = typeof res === 'string' ? res : (res as any).message || res;
         } else if (exception instanceof EntityNotFoundError) {
             status = HttpStatus.NOT_FOUND;
-            message = 'Entity not found';
-        } else if (exception instanceof QueryFailedError) {
+            message = exception.message;
+        } else if (exception instanceof NotFoundException) {
+            status = HttpStatus.NOT_FOUND;
+            message = exception.message;
+        }
+        else if (exception instanceof QueryFailedError) {
             status = HttpStatus.BAD_REQUEST;
             message = (exception as any).message;
         }
