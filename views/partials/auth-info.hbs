@@ -1,7 +1,30 @@
 <div class="authorization">
     {{#if user}}
         <p class="authorization__status">Вы авторизованы.</p>
-        <a href="/auth/logout" class="authorization__link">Выйти</a>
+        <form id="signOutForm">
+            <button class="authorization__link" type="submit">Log Out</button>
+        </form>
+
+        <script>
+            document.getElementById('signOutForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                fetch('/api/auth/signout', {
+                    method: 'POST',
+                    credentials: 'include'
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = '/';
+                            } else {
+                                console.error('Failed to log out');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+            })
+        </script>
     {{else}}
         <a href="/auth/signin" class="authorization__link">Войти</a>
         <a href="/auth/signup" class="authorization__link">Зарегестрироваться</a>

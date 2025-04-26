@@ -10,7 +10,7 @@ import {
     Query,
     DefaultValuePipe,
     HttpCode,
-    HttpStatus, UseInterceptors, Header,
+    HttpStatus, UseInterceptors, Header, UseGuards,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -27,6 +27,7 @@ import {
 import {ETagInterceptor} from "../interceptors/etag.interceptor";
 import {UserResponseDto} from "../users/dto/user-response.dto";
 import {MessageResponseDto} from "./dto/message-response.dto";
+import {AuthGuard} from "../common/auth.guard";
 
 @ApiTags('Messages')
 @Controller('api/messages')
@@ -34,6 +35,7 @@ import {MessageResponseDto} from "./dto/message-response.dto";
 export class MessagesApiController {
     constructor(private readonly messagesService: MessagesService) {}
 
+    @UseGuards(AuthGuard)
     @Post()
     @ApiOperation({ summary: 'Создать новое сообщение' })
     @ApiBody({ type: CreateMessageDto, description: 'Данные для создания сообщения' })

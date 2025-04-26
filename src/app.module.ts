@@ -21,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
 import {IsAuthMiddleware} from "./auth/is-auth.middleware";
 import {UsersService} from "./users/users.service";
 import {User} from "./users/entities/user.entity";
+import {AuthMiddleware} from "./auth/auth.middleware";
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]),
@@ -60,6 +61,7 @@ import {User} from "./users/entities/user.entity";
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(IsAuthMiddleware).forRoutes('*');
+    consumer.apply(AuthMiddleware).forRoutes('/news');
   }
 
   constructor() {
