@@ -16,6 +16,7 @@ import { CreateOlympiadDto } from './dto/create-olympiad.dto';
 import { UpdateOlympiadDto } from './dto/update-olympiad.dto';
 import { Olympiad } from './entities/olympiad.entity';
 import {ETagInterceptor} from "../interceptors/etag.interceptor";
+import {OlympiadResponseDto} from "./dto/olympiad-response.dto";
 
 @ApiTags('Olympiads')
 @Controller('api/olympiads')
@@ -71,7 +72,7 @@ export class OlympiadsApiController {
         const { items, total } = await this.olympiadsService.findAllPaginated(page, limit);
 
         return {
-            data: items,
+            data: items.map(item => new OlympiadResponseDto(item)),
             meta: {
                 total,
                 page,
@@ -87,8 +88,9 @@ export class OlympiadsApiController {
     @ApiResponse({ status: 200, description: 'Данные олимпиады', type: Olympiad })
     @ApiResponse({ status: 404, description: 'Олимпиада не найдена' })
     @Header('Cache-Control', 'public, max-age=3600')
-    async findOne(@Param('id', ParseIntPipe) id: number): Promise<Olympiad> {
-        return this.olympiadsService.findOne(id);
+    async findOne(@Param('id', ParseIntPipe) id: number): Promise<OlympiadResponseDto> {
+        const olympiad = await this.olympiadsService.findOne(id);
+        return new OlympiadResponseDto(olympiad);
     }
 
     @Patch(':id')
