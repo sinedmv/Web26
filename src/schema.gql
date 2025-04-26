@@ -5,6 +5,7 @@
 type User {
   id: Int!
   username: String!
+  superTokensId: String!
   email: String!
   isAdmin: Boolean!
   createdAt: DateTime!
@@ -116,6 +117,7 @@ input UpdateNewsDto {
 
 input CreateUserDto {
   username: String!
+  superTokensId: String!
   email: String!
   password: String!
 }

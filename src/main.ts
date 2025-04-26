@@ -6,6 +6,13 @@ import {INestApplication, ValidationPipe} from "@nestjs/common";
 import {AllExceptionsFilter} from "./exception.filter";
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {ElapsedTimeInterceptor} from "./interceptors/time.interceptor";
+import { middleware } from 'supertokens-node/framework/express';
+import supertokens from 'supertokens-node'
+import SuperTokens from "supertokens-node";
+import {SuperTokensConfig} from "./auth/supertokens.config";
+import * as express from 'express';
+import {NextFunction, RequestHandler} from "express";
+
 
 export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
@@ -25,6 +32,15 @@ async function bootstrap() {
       AppModule,
   );
 
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    console.log('\n=== Incoming Request ===');
+    console.log('Method:', req.method);
+    console.log('URL:', req.url);
+    console.log('Headers:', req.headers);
+
+    next();
+  });
+
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
@@ -34,6 +50,24 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     transform: true,
   }));
+
+  const cors = require("cors")
+  const { middleware } = require("supertokens-node/framework/express");
+
+  SuperTokens.init(SuperTokensConfig);
+
+// make sure that the supertokens.init({...}) call comes before the code below
+
+  app.use(cors({
+    origin: process.env.API_DOMAIN,
+    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    credentials: true,
+  }));
+// IMPORTANT: CORS config should be before the below middleware() call.
+
+  app.use(middleware());
+  const { errorHandler } = require("supertokens-node/framework/express");
+  app.use(errorHandler())
 
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new ElapsedTimeInterceptor());

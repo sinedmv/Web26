@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {MiddlewareConsumer, Module} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -17,9 +17,13 @@ import {OlympiadsService} from "./olympiads/olympiads.service";
 import {GraphQLModule} from "@nestjs/graphql";
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 import { S3Module } from './s3/s3.module';
+import { AuthModule } from './auth/auth.module';
+import {IsAuthMiddleware} from "./auth/is-auth.middleware";
+import {UsersService} from "./users/users.service";
+import {User} from "./users/entities/user.entity";
 
 @Module({
-  imports: [
+  imports: [TypeOrmModule.forFeature([User]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.PG_HOST,
@@ -47,12 +51,17 @@ import { S3Module } from './s3/s3.module';
     OlympiadsModule,
     GalleryModule,
     UsersModule,
-    S3Module
+    S3Module,
+    AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersService],
 })
 export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IsAuthMiddleware).forRoutes('*');
+  }
+
   constructor() {
     this.registerPartials();
   }

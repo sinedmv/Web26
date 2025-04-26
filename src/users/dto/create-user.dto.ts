@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { InputType, Field } from '@nestjs/graphql';
 import { IsEmail, IsString, MinLength } from 'class-validator';
+import {Column} from "typeorm";
 
 @InputType()
 export class CreateUserDto {
@@ -13,6 +14,15 @@ export class CreateUserDto {
     @IsString()
     @MinLength(3)
     username: string;
+
+    @ApiProperty({
+        example: 'example',
+        description: 'SuperTokens',
+        required: true,
+    })
+    @Field()
+    @IsString()
+    superTokensId: string;
 
     @ApiProperty({
         example: 'john@example.com',

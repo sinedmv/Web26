@@ -43,6 +43,8 @@
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "supertokens-node": "^22.1.0",
+    "supertokens-web-js": "^0.15.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {

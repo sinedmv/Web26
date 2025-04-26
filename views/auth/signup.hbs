@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{> head
+        description="Sign Up"
+        keywords="пользователь"
+        title="Sign Up"
+}}
+<body class="body">
+{{> header pageTitle="Sign Ip"}}
+
+<main class="main">
+    <form action="/auth/register" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+</main>
+
+{{> footer}}
+</body>
+</html>

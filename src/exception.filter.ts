@@ -9,6 +9,7 @@ import { GqlArgumentsHost } from '@nestjs/graphql';
 import { EntityNotFoundError, QueryFailedError } from "typeorm";
 import { GraphQLError } from 'graphql';
 import { Request, Response } from 'express';
+import {AuthenticationError} from "@nestjs/apollo";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -65,6 +66,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
         }
         else if (exception instanceof QueryFailedError) {
             status = HttpStatus.BAD_REQUEST;
+            message = (exception as any).message;
+        } else if (exception instanceof AuthenticationError) {
+            status = HttpStatus.UNAUTHORIZED;
             message = (exception as any).message;
         }
 
